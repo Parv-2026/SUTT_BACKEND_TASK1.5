@@ -1,10 +1,14 @@
-from django.urls import path
-from . import views
+from django.contrib import admin
+from django.urls import include, path
+from django.views.generic import RedirectView
 
-app_name = 'polls'
 urlpatterns = [
-    path('', views.IndexView.as_view(), name='index'),
-    path('<int:pk>/', views.DetailView.as_view(), name='detail'),
-    path('<int:pk>/results/', views.ResultsView.as_view(), name='results'),
-    path('<int:question_id>/vote/', views.vote, name='vote'),
+    path('', RedirectView.as_view(pattern_name='polls:index', permanent=False)),
+    path('polls/', include('polls.urls')),
+    path('admin/', admin.site.urls),
 ]
+
+# Tutorial Part 8: expose the toolbar only when opted in for local development.
+from django.conf import settings
+if settings.DEBUG and 'debug_toolbar' in settings.INSTALLED_APPS:
+    urlpatterns += [path('__debug__/', include('debug_toolbar.urls'))]
