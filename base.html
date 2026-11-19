@@ -1,0 +1,15 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{% block title %}Campus Polls{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'polls/style.css' %}">
+</head>
+<body>
+  <header class="top"><a class="brand" href="{% url 'polls:index' %}">Campus <span>Polls</span></a><span class="tag">Django learning project</span></header>
+  <main class="wrap">{% block content %}{% endblock %}</main>
+  <footer>Built as a learning exercise for SUTT Backend Task 1.5</footer>
+</body>
+</html>

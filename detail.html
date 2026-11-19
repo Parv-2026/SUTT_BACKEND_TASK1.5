@@ -1,0 +1,17 @@
+{% extends 'polls/base.html' %}
+{% block title %}Vote | Campus Polls{% endblock %}
+{% block content %}
+<a class="back" href="{% url 'polls:index' %}">← All questions</a>
+<section class="panel"><p class="eyebrow">CAST YOUR VOTE</p><h1>{{ question.question_text }}</h1>
+{% if error_message %}<p class="error" role="alert">{{ error_message }}</p>{% endif %}
+<form action="{% url 'polls:vote' question.id %}" method="post">
+{% csrf_token %}
+<fieldset><legend class="sr-only">Choose an answer</legend>
+{% for choice in question.choice_set.all %}
+<label class="option"><input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}"> <span>{{ choice.choice_text }}</span></label>
+{% empty %}<p>No options are available for this question.</p>
+{% endfor %}
+</fieldset>
+<button type="submit" {% if not question.choice_set.exists %}disabled{% endif %}>Submit vote</button>
+</form></section>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'polls/base.html' %}
+{% block title %}Questions | Campus Polls{% endblock %}
+{% block content %}
+<section class="intro"><p class="eyebrow">STUDENT POLLS</p><h1>Your opinion matters.</h1><p>Choose a question, cast a vote, and see what everyone thinks.</p></section>
+<section class="panel"><h2>Latest questions</h2>
+{% if latest_question_list %}
+  <ul class="polls">{% for question in latest_question_list %}
+    <li><a href="{% url 'polls:detail' question.id %}"><span>{{ question.question_text }}</span><span class="arrow">View poll →</span></a></li>
+  {% endfor %}</ul>
+{% else %}
+  <p class="empty">No polls are available yet. An administrator can add one at <code>/admin/</code>.</p>
+{% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'polls/base.html' %}
+{% block title %}Results | Campus Polls{% endblock %}
+{% block content %}
+<a class="back" href="{% url 'polls:index' %}">← All questions</a>
+<section class="panel"><p class="eyebrow">POLL RESULTS</p><h1>{{ question.question_text }}</h1>
+<ul class="results">{% for choice in question.choice_set.all %}
+<li><span>{{ choice.choice_text }}</span><strong>{{ choice.votes }} vote{{ choice.votes|pluralize }}</strong></li>
+{% endfor %}</ul>
+<a class="link" href="{% url 'polls:detail' question.id %}">Vote again →</a>
+</section>
+{% endblock %}
